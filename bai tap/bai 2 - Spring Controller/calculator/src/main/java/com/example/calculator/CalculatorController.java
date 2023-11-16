@@ -15,15 +15,19 @@ public class CalculatorController {
     @RequestMapping("/calculator")
     public String result(@RequestParam("num1") float num1, @RequestParam("num2") float num2,
                          @RequestParam("cal") String cal, Model model){
-        double result;
+        String result;
         switch (cal){
-            case "plus": result = num1 + num2;
+            case "plus": result = "" + (num1 + num2);
             break;
-            case "sub": result = num1 - num2;
+            case "sub": result = "" + (num1 - num2);
                 break;
-            case "mul": result = num1 * num2;
+            case "mul": result = "" + (num1 * num2);
                 break;
-            default: result = num1 / num2;
+            default: if(num2 == 0){
+                result = "Can divide by 0";
+            }else {
+                result = "" + num1 / num2;
+            }
                 break;
         }
         model.addAttribute("result", result);
