@@ -16,7 +16,7 @@ import java.util.List;
 public class MailBoxController {
     @Autowired
     IMailBoxService iMailBoxService;
-    
+
     @GetMapping("/")
     public String showInfo(Model model) {
         model.addAttribute("mailbox", iMailBoxService.getMailBox());
