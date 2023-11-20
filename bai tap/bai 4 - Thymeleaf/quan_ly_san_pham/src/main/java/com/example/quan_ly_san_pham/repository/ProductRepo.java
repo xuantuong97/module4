@@ -30,7 +30,9 @@ public class ProductRepo implements IProductRepo{
 
     @Override
     public void updateProduct(int id, Product product) {
-        productMap.put(id, product);
+        if (productMap.containsKey(id)) {
+            productMap.put(id, product);
+        }
     }
 
     @Override
