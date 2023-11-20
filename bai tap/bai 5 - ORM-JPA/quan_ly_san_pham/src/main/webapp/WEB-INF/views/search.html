@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h2>Danh sách kết quả</h2>
+<p>
+  <a th:href="@{/}"><button>Trở về</button></a>
+</p>
+<p>
+<form action="/product/search" method="get">
+  <input type="text" name="keyword" th:value="${keyword}">
+  <button>Tìm kiếm</button>
+</form>
+</p>
+<table>
+  <thead>
+  <th>STT</th>
+  <th>Tên</th>
+  <th>Giá</th>
+  <th>Mô tả</th>
+  <th>Nhà sản xuất</th>
+  <th>Chi tiết</th>
+  <th>Sửa</th>
+  <th>Xoá</th>
+  </thead>
+  <tbody>
+  <tr th:each="product, pc : ${productList}">
+    <td th:text="${pc.count}"></td>
+    <td th:text="${product.getName()}"></td>
+    <td th:text="${product.getPrice()}"></td>
+    <td th:text="${product.getDescription()}"></td>
+    <td th:text="${product.getManufacture()}"></td>
+    <td><a th:href="@{/product/detail/{id}(id=${product.getId()})}">Chi tiết</a></td>
+    <td><a th:href="@{/product/edit/{id}(id=${product.getId()})}">Sửa</a></td>
+    <td><button th:onclick="'confirmDelete(' + ${product.id} + ')'" th:text="Xóa"></button></td>
+  </tr>
+  <tr>
+    <td th:if="${productList.isEmpty()}" th:text="${'Không tìm thấy sản phẩm nào'}" colspan="8"></td>
+  </tr>
+  </tbody>
+</table>
+<script>
+  function confirmDelete(id) {
+    let result = confirm("Bạn có chắc chắn muốn xóa không?");
+    if (result) {
+      window.location.href = "/product/delete?id=" + id;
+    } else {
+      alert("Đã hủy xóa.");
+    }
+  }
+</script>
+</body>
+</html>
