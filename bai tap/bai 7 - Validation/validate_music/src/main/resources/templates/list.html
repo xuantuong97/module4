@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/song/create"><button>Add new song</button></a>
+<table>
+    <th>
+        <td>STT</td>
+        <td>Song Name</td>
+        <td>Singer Name</td>
+        <td>Song Type</td>
+    </th>
+    <tr th:each="song,status:${songs}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${song.songName}"></td>
+        <td th:text="${song.singerName}"></td>
+        <td th:text="${song.musicType}"></td>
+    </tr>
+</table>
+</body>
+</html>

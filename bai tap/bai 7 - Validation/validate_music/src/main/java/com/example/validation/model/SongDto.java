@@ -2,7 +2,6 @@ package com.example.validation.model;
 
 
 import jakarta.validation.constraints.*;
-import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +14,8 @@ import org.springframework.validation.Validator;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SongDto implements Validator {
-    @Max(value = 800, message = "Not over 800 character")
     private String songName;
-    @Max(value = 300, message = "Not over 300 character")
     private String singerName;
-    @Max(value = 1000, message = "Not over 1000 character")
     private String musicType;
     @Override
     public boolean supports(Class<?> clazz) {
@@ -32,11 +28,29 @@ public class SongDto implements Validator {
         if("".equals(songDto.songName.trim())){
             errors.rejectValue("songName", null, "Not allow empty");
         }
-        else if(!songDto.songName.matches("^[a-zA-Z0-9]*$")){
+        else if(songDto.songName.length()>800) {
+            errors.rejectValue("songName", null, "The length must be smaller than 800");
+        }
+        else if(!songDto.songName.matches("^[a-zA-Z0-9 ]*$")){
             errors.rejectValue("songName", null, "Not contain special character");
         }
         else if("".equals(songDto.singerName.trim())){
-            errors.rejectValue("songName", null, "Not allow empty");
+            errors.rejectValue("singerName", null, "Not allow empty");
+        }
+        else if(songDto.singerName.length()>300) {
+            errors.rejectValue("singerName", null, "The length must be smaller than 300");
+        }
+        else if(!songDto.singerName.matches("^[a-zA-Z0-9 ]*$")){
+            errors.rejectValue("singerName", null, "Not contain special character");
+        }
+        else if("".equals(songDto.musicType.trim())) {
+            errors.rejectValue("musicType", null, "Not allow empty");
+        }
+        else if(songDto.musicType.length()>1000) {
+            errors.rejectValue("musicType", null, "The length must be smaller than 1000");
+        }
+        else if(!songDto.musicType.matches("^[a-zA-Z0-9, ]*$")){
+            errors.rejectValue("musicType", null, "Not contain special character");
         }
     }
 }
