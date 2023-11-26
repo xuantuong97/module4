@@ -12,12 +12,14 @@
         <td>Song Name</td>
         <td>Singer Name</td>
         <td>Song Type</td>
+        <td>Edit Song</td>
     </th>
     <tr th:each="song,status:${songs}">
         <td th:text="${status.count}"></td>
         <td th:text="${song.songName}"></td>
         <td th:text="${song.singerName}"></td>
         <td th:text="${song.musicType}"></td>
+        <td><a th:href="@{/song/edit(id=${song.getId()})}"><button>Edit</button></a></td>
     </tr>
 </table>
 </body>
