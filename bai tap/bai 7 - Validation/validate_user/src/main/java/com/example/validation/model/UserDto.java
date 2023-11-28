@@ -33,16 +33,16 @@ public class UserDto implements Validator {
         if("".equals(userDto.firstName.trim())){
             errors.rejectValue("firstName", null, "Not allow empty");
         }
-        else if(!(userDto.firstName.matches("^[A-Z][a-z]+") && (userDto.firstName.trim()).length()>=5)){
+        if(!(userDto.firstName.matches("^[A-Z][a-z]+") && (userDto.firstName.trim()).length()>=5)){
             errors.rejectValue("firstName", null, "Not correct format or not enough length");
         }
-        else if("".equals(userDto.lastName.trim())){
+        if("".equals(userDto.lastName.trim())){
             errors.rejectValue("lastName", null, "Not allow empty");
         }
-        else if(!(userDto.lastName.matches("^[A-Z][a-z]+") && (userDto.lastName.trim().length()>=5))){
+        if(!(userDto.lastName.matches("^[A-Z][a-z]+") && (userDto.lastName.trim().length()>=5))){
             errors.rejectValue("lastName", null, "Not correct format or not enough length");
         }
-        else if(!userDto.phoneNumber.matches("^0\\d{9}$")){
+        if(!userDto.phoneNumber.matches("^0\\d{9}$")){
             errors.rejectValue("phoneNumber", null, "Not correct format");
         }
     }
