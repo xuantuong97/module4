@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+  <th>
+      <td>Book Name</td>
+      <td>Content</td>
+  </th>
+   <tr>
+       <td th:text="*{book.getBookName()}"></td>
+       <td th:text="*{book.getContent()}"></td>
+   </tr>
+</table>
+<button><a th:href="'/book/borrow' + ${book.getBookId()}">Borrow</a></button>
+</body>
+</html>
