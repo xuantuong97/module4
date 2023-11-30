@@ -1,5 +1,6 @@
 package com.example.blogs.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "category")
     private Set<Blog> blogSet;
 }
