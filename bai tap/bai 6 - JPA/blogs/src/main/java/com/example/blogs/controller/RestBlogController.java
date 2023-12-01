@@ -32,7 +32,7 @@ public class RestBlogController {
         Pageable pageable = PageRequest.of(page,5, Sort.by("create_date").descending());
         Page<Blog> blogs = blogService.findAll(keyword,category,pageable);
         if(blogs.getContent().isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(blogs,HttpStatus.OK);
     }
@@ -50,7 +50,7 @@ public class RestBlogController {
     public ResponseEntity<List<Category>> getCategories(){
         List<Category> categories = categoryService.findAll();
         if(categories.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(categories,HttpStatus.OK);
     }
@@ -62,7 +62,7 @@ public class RestBlogController {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("create_date").descending());
         Page<Blog> blogs = blogService.findAll(keyword, category, pageable);
         if (blogs.getContent().isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
@@ -73,7 +73,7 @@ public class RestBlogController {
             Blog blog = blogService.findById(id);
             return new ResponseEntity<>(blog, HttpStatus.OK);
         }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
