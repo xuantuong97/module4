@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h2>Tìm kiếm</h2>
+<input id="keyword" placeholder="Enter key word">
+<button id="btn-search">Search</button>
+
+<h2>Danh sách</h2>
+<table>
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Title</th>
+        <th>Content</th>
+    </tr>
+    </thead>
+    <tbody id="content">
+
+    </tbody>
+</table>
+<button id="btn-more">More</button>
+<script>
+    let page = 0;
+    let keyword = "";
+    $(document).ready(function () {
+        display();
+        $("#btn-more").click(function (){
+            page++;
+            display();
+        })
+        $("#btn-search").click(function (){
+            keyword = $("#keyword").val();
+            display();
+        })
+    })
+
+    function display() {
+        let content = "";
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            method: "get",
+            url: `http://localhost:8080/api-blogs?page=${page}&keyword=${keyword}`,
+            success: function (data) {
+                let data1 = data.content;
+                for (let i = 0; i < data1.length; i++) {
+                    content += `<tr>
+                                    <td>${i + 1}</td>
+                                    <td>${data1[i].title}</td>
+                                    <td>${data1[i].content}</td>
+                                </tr>`
+                }
+                $("#content").html(content);
+            }
+        });
+    }
+</script>
+</body>
+</html>

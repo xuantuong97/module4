@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api-blogs")
 public class RestBlogController {
@@ -29,7 +30,7 @@ public class RestBlogController {
     public ResponseEntity<Page<Blog>> getAll(@RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "") String  keyword,
                                              @RequestParam(defaultValue = "0") int category){
-        Pageable pageable = PageRequest.of(page,5, Sort.by("create_date").descending());
+        Pageable pageable = PageRequest.of(page,2, Sort.by("create_date").descending());
         Page<Blog> blogs = blogService.findAll(keyword,category,pageable);
         if(blogs.getContent().isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
